@@ -4,7 +4,7 @@ replicaCount: 3
 # Docker image configuration
 image:
   repository: nginx
-  tag: "1.27"
+  tag: "1.28"
   pullPolicy: IfNotPresent
 
 # Kubernetes Service configuration
