@@ -1,5 +1,5 @@
 # Number of Nginx replicas to run
-replicaCount: 2
+replicaCount: 3
 
 # Docker image configuration
 image:
