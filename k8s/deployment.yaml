@@ -10,7 +10,7 @@ metadata:
 
 spec:
   # Desired number of application pods
-  replicas: 2
+  replicas: 3
 
   # Identifies which pods this Deployment manages
   selector:
