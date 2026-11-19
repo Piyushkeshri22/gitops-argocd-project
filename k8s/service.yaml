@@ -1,0 +1,28 @@
+# Kubernetes API version for Service resources
+apiVersion: v1
+
+# Defines the resource type
+kind: Service
+
+metadata:
+  # Name of the Service
+  name: nginx-service
+
+spec:
+  # NodePort exposes the application through a port on the Kubernetes node
+  type: NodePort
+
+  # Selects pods having this label
+  # Must match the labels in deployment.yaml
+  selector:
+    app: nginx
+
+  ports:
+    # Port exposed by the Service inside the cluster
+    - port: 80
+
+      # Port on which the application container listens
+      targetPort: 80
+
+      # Port exposed on the Kubernetes node
+      nodePort: 30080
