@@ -1,0 +1,17 @@
+# Helm chart metadata format version
+apiVersion: v2
+
+# Name of our Helm chart
+name: nginx-chart
+
+# Description of this chart
+description: GitOps-based Nginx deployment using Helm and Argo CD
+
+# This chart deploys an application
+type: application
+
+# Helm chart version
+version: 0.1.0
+
+# Nginx application version
+appVersion: "1.27"

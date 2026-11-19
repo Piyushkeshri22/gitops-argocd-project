@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: nginx-helm-deployment
+
+spec:
+  # Number of replicas from values.yaml
+  replicas: {{ .Values.replicaCount }}
+
+  selector:
+    matchLabels:
+      app: nginx-helm
+
+  template:
+    metadata:
+      labels:
+        app: nginx-helm
+
+    spec:
+      containers:
+        - name: nginx
+          # Docker image from values.yaml
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+
+          ports:
+            - containerPort: {{ .Values.service.port }}
+
+          # CPU and memory configuration
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}

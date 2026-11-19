@@ -1,0 +1,23 @@
+# Number of Nginx replicas to run
+replicaCount: 2
+
+# Docker image configuration
+image:
+  repository: nginx
+  tag: "1.27"
+  pullPolicy: IfNotPresent
+
+# Kubernetes Service configuration
+service:
+  type: NodePort
+  port: 80
+  nodePort: 30081
+
+# Container resource allocation
+resources:
+  requests:
+    cpu: 100m
+    memory: 64Mi
+  limits:
+    cpu: 250m
+    memory: 128Mi

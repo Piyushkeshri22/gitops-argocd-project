@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+
+metadata:
+  # Name of the Helm-managed Service
+  name: nginx-helm-service
+
+spec:
+  # Service type from values.yaml
+  type: {{ .Values.service.type }}
+
+  # Selects pods created by our Helm Deployment
+  selector:
+    app: nginx-helm
+
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: {{ .Values.service.port }}
+      protocol: TCP
+
+      # NodePort from values.yaml
+      nodePort: {{ .Values.service.nodePort }}
