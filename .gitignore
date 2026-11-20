@@ -1,4 +1,13 @@
+# Local Alertmanager configuration
 alertmanager-email-values.yaml
+
+# Generated Helm output
 rendered-monitoring.yaml
+
+# Environment files
 .env
 .env.*
+
+# Local credentials and secret files
+*secret*.yaml
+*credentials*

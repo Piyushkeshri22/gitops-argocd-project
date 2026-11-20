@@ -284,7 +284,12 @@ Preview generated Kubernetes YAML:
 helm template nginx-helm ./helm/nginx-chart
 ```
 
-Install chart:
+
+**Alternative deployment method (Manual Helm installation):**
+
+> Use this method only if you want to deploy the chart directly using Helm.
+> If Argo CD is already managing the `nginx-helm` application, do not run this command.
+> Avoid managing the same Kubernetes resources through both Helm CLI and Argo CD.
 
 ```bash
 helm install nginx-helm ./helm/nginx-chart
