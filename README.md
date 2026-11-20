@@ -220,6 +220,10 @@ minikube service nginx-service
 
 The application is also accessible through the Minikube node IP and NodePort when the networking setup permits it.
 
+### Kubernetes Deployment Screenshot
+
+![Kubernetes Deployments](screenshots/01-kubernetes-deployments.png)
+
 ---
 
 ## 5. Helm Chart Deployment
@@ -388,6 +392,16 @@ Configured automated synchronization for the applications.
 | Prune | Removes resources no longer defined in Git |
 | Self Heal | Reconciles manually changed live resources with Git |
 
+### Argo CD Screenshots
+
+**Argo CD Applications – Sync and Health Status**
+
+![Argo CD Applications](screenshots/02-argocd-applications.png)
+
+**Argo CD Application Details**
+
+![Argo CD Application Details](screenshots/03-argocd-application-details.png)
+
 ### Understanding Self-Healing
 
 Self-healing is one of the important GitOps features demonstrated in this project.
@@ -511,6 +525,10 @@ Container restart count:
 sum(kube_pod_container_status_restarts_total)
 ```
 
+### Prometheus Target Health Screenshot
+
+![Prometheus Target Health](screenshots/06-prometheus-target-health.png)
+
 ---
 
 ## 8. Grafana Dashboard
@@ -568,6 +586,10 @@ Created a dashboard named `Kubernetes Monitoring` with nine panels.
 The dashboard provides a centralized view of Kubernetes cluster health and resource utilization.
 
 The custom dashboard was created and captured as project evidence. Its JSON provisioning is not currently maintained in the Git repository.
+
+### Grafana Dashboard Screenshot
+
+![Kubernetes Monitoring Dashboard](screenshots/04-grafana-kubernetes-dashboard.png)
 
 ---
 
@@ -658,6 +680,10 @@ The four custom alerts were visible in the Prometheus Alerts page and were inact
 
 A temporary test alert was also used during validation to verify the Prometheus-to-Alertmanager flow. It was removed afterward and is not part of the final configuration.
 
+### Prometheus Alert Rules Screenshot
+
+![Prometheus Alert Rules](screenshots/05-prometheus-alert-rules.png)
+
 ---
 
 ## 10. Alertmanager and Gmail Email Notifications
@@ -686,6 +712,10 @@ Gmail SMTP Server
     v
 Recipient Gmail Inbox
 ```
+
+### Alertmanager Alerts Screenshot
+
+![Alertmanager Alerts](screenshots/07-alertmanager-alerts.png)
 
 ### Access Alertmanager
 
@@ -838,6 +868,10 @@ The email notification test demonstrated that the Prometheus-to-Alertmanager-to-
 **Gmail notification received**
 
 ![Gmail Alert Notification](screenshots/08-gmail-alert-notification.png)
+
+**Gmail Resolved Notification**
+
+![Gmail Resolved Notification](screenshots/10-gmail-resolved-notification.png)
 
 ### Troubleshooting Gmail SMTP
 
