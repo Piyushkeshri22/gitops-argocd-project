@@ -6,17 +6,26 @@ metadata:
   name: nginx-helm-service
 
 spec:
-  # Service type from values.yaml
+  # Service type is taken from values.yaml
+  # Supported types include NodePort, ClusterIP and LoadBalancer
   type: {{ .Values.service.type }}
 
-  # Selects pods created by our Helm Deployment
+  # Selects only the pods with this matching label
+  # This must match the labels in deployment.yaml
   selector:
     app: nginx-helm
 
   ports:
+    # Service port exposed inside the cluster
     - port: {{ .Values.service.port }}
+
+      # Port on which the Nginx container listens
       targetPort: {{ .Values.service.port }}
+
+      # Communication protocol
       protocol: TCP
 
-      # NodePort from values.yaml
+      # Render nodePort only when Service type is NodePort
+      {{- if eq .Values.service.type "NodePort" }}
       nodePort: {{ .Values.service.nodePort }}
+      {{- end }}

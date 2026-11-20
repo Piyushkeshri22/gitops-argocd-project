@@ -11,3 +11,7 @@ rendered-monitoring.yaml
 # Local credentials and secret files
 *secret*.yaml
 *credentials*
+
+# Generated Helm chart packages
+*.tgz
+

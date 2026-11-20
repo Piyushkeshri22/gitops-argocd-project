@@ -948,7 +948,6 @@ kubectl get services -A
 
 ```bash
 helm list -A
-helm status nginx-helm
 helm status monitoring -n monitoring
 ```
 
