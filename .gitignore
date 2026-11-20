@@ -1,0 +1,4 @@
+alertmanager-email-values.yaml
+rendered-monitoring.yaml
+.env
+.env.*
