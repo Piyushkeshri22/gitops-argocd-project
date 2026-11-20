@@ -317,7 +317,7 @@ kubectl get pods
 kubectl get services
 ```
 
-The Helm-managed Deployment is named `nginx-helm-deployment`, and its Service is `nginx-helm-service`.
+When installed with the release name `nginx-helm`, both the Helm-managed Deployment and Service are named `nginx-helm-nginx-chart`.
 
 The NodePort configured for this Service is `30081`.
 
