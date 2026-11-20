@@ -144,6 +144,8 @@ gitops-argocd-project/
 │   ├── 09-alertmanager-gmail-configuration.png
 │   └── 10-gmail-resolved-notification.png
 │
+├── nginx-gitops-app.yaml
+├── nginx-helm-app.yaml
 ├── monitoring-alerts-app.yaml
 ├── .gitignore
 └── README.md
@@ -865,45 +867,67 @@ kubectl logs -n monitoring \
 
 ---
 
-## 11. GitOps Management of Monitoring Alerts
+## 11. GitOps Management with Argo CD Applications
 
-Instead of manually managing the PrometheusRule resource, a separate Argo CD Application was created.
+Three Argo CD Applications were configured to manage Kubernetes resources from this GitHub repository.
 
-File:
+The Application definitions are also stored in the repository so the GitOps configuration can be reproduced and maintained through Git.
 
-```text
-monitoring-alerts-app.yaml
-```
+### Argo CD Application manifests
 
-Important configuration:
+| Manifest file | Application name | Source path | Destination namespace |
+|---|---|---|---|
+| `nginx-gitops-app.yaml` | `nginx-gitops` | `k8s` | `default` |
+| `nginx-helm-app.yaml` | `nginx-helm` | `helm/nginx-chart` | `default` |
+| `monitoring-alerts-app.yaml` | `monitoring-alerts` | `monitoring/alerts` | `monitoring` |
 
-| Field | Value |
-|---|---|
-| Application | monitoring-alerts |
-| Argo CD namespace | argocd |
-| Repository | This GitHub repository |
-| Branch | main |
-| Source path | monitoring/alerts |
-| Destination namespace | monitoring |
-| Automated sync | Enabled |
-| Prune | Enabled |
-| Self Heal | Enabled |
+### Application configuration
 
-Apply the Application:
+The applications use the following GitOps settings:
+
+- GitHub repository as the source of truth.
+- Branch: `main`.
+- Automated synchronization enabled.
+- Pruning enabled.
+- Self-healing enabled.
+
+The `nginx-gitops` application additionally uses the `Prune=confirm` sync option.
+
+### Apply the Application manifests
+
+After Argo CD has been installed, the Application definitions can be applied using:
 
 ```bash
+kubectl apply -f nginx-gitops-app.yaml
+kubectl apply -f nginx-helm-app.yaml
 kubectl apply -f monitoring-alerts-app.yaml
 ```
 
-Verify:
+These commands create or update the Argo CD Application resources. They do not directly install the application workloads; Argo CD manages those workloads based on each application's configured source path.
+
+### Verify Argo CD Applications
 
 ```bash
 kubectl get applications -n argocd
 ```
 
-This makes the PrometheusRule resource part of the GitOps workflow.
+Check an individual application:
 
-Changes to alert rules can be committed to GitHub and synchronized by Argo CD.
+```bash
+kubectl describe application nginx-gitops -n argocd
+kubectl describe application nginx-helm -n argocd
+kubectl describe application monitoring-alerts -n argocd
+```
+
+### GitOps workflow
+
+1. Make changes to Kubernetes manifests, Helm chart files, or Prometheus alert rules.
+2. Commit and push the changes to GitHub.
+3. Argo CD detects changes in the configured repository.
+4. Argo CD synchronizes the desired configuration with Kubernetes.
+5. Self-healing helps restore manually modified resources to the desired Git state.
+
+This approach keeps application configuration version-controlled and makes deployments reproducible through Git.
 
 ---
 
