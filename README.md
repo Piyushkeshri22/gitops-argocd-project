@@ -162,6 +162,8 @@ gitops-argocd-project/
 | `Chart.yaml` | Helm chart metadata and application version |
 | `values.yaml` | Configurable image, replicas, service and resource values |
 | `monitoring/alerts/` | Custom Prometheus alert rules |
+| `nginx-gitops-app.yaml` | Argo CD Application for Kubernetes Nginx deployment |
+| `nginx-helm-app.yaml` | Argo CD Application for Helm-based Nginx deployment |
 | `monitoring-alerts-app.yaml` | Argo CD Application for monitoring alert rules |
 | `screenshots/` | Project implementation screenshots |
 | `.gitignore` | Excludes local configuration and generated files |
