@@ -2,7 +2,9 @@ apiVersion: apps/v1
 kind: Deployment
 
 metadata:
-  name: nginx-helm-deployment
+  name: {{ include "nginx-chart.fullname" . }}
+  labels:
+    {{- include "nginx-chart.labels" . | nindent 4 }}
 
 spec:
   # Number of replicas from values.yaml
@@ -10,12 +12,12 @@ spec:
 
   selector:
     matchLabels:
-      app: nginx-helm
+      {{- include "nginx-chart.selectorLabels" . | nindent 6 }}
 
   template:
     metadata:
       labels:
-        app: nginx-helm
+        {{- include "nginx-chart.selectorLabels" . | nindent 8 }}
 
     spec:
       containers:
@@ -26,6 +28,30 @@ spec:
 
           ports:
             - containerPort: {{ .Values.service.port }}
+
+          # Readiness probe
+          {{- if .Values.probes.readiness.enabled }}
+          readinessProbe:
+            httpGet:
+              path: {{ .Values.probes.readiness.path }}
+              port: {{ .Values.service.port }}
+            initialDelaySeconds: {{ .Values.probes.readiness.initialDelaySeconds }}
+            periodSeconds: {{ .Values.probes.readiness.periodSeconds }}
+            timeoutSeconds: {{ .Values.probes.readiness.timeoutSeconds }}
+            failureThreshold: {{ .Values.probes.readiness.failureThreshold }}
+          {{- end }}
+
+          # Liveness probe
+          {{- if .Values.probes.liveness.enabled }}
+          livenessProbe:
+            httpGet:
+              path: {{ .Values.probes.liveness.path }}
+              port: {{ .Values.service.port }}
+            initialDelaySeconds: {{ .Values.probes.liveness.initialDelaySeconds }}
+            periodSeconds: {{ .Values.probes.liveness.periodSeconds }}
+            timeoutSeconds: {{ .Values.probes.liveness.timeoutSeconds }}
+            failureThreshold: {{ .Values.probes.liveness.failureThreshold }}
+          {{- end }}
 
           # CPU and memory configuration
           resources:

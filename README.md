@@ -448,6 +448,7 @@ Install monitoring stack:
 
 ```bash
 helm install monitoring prometheus-community/kube-prometheus-stack \
+  --version 93.4.1 \
   --namespace monitoring
 ```
 
